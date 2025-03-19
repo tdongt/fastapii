@@ -1,0 +1,13 @@
+fastapi[all]
+aioredis
+cos-python-sdk-v5
+PyJWT
+python-dotenv
+tortoise-orm[aiomysql]
+tencentcloud-sdk-python
+qcloud-python-st
+wechatpy
+qrcode[pil]
+python-alipay-sdk
+passlib
+sqlmodel

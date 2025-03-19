@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登陆结果页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .bin {
+            width: 600px;
+            height: 500px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
+            /* 让内容居中 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        h1 {
+            margin: 0 0 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+        h3 {
+            margin: 0 0 20px;
+            font-size: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="bin">
+    <h1>登陆信息如下</h1>
+    {% if message %}
+        <p {% if message %}style="color: {% if success %}green{% else %}red{% endif %};"{% endif %}>
+            {{ message }}
+        </p>
+    {% endif %}
+    {% if success %}
+        <h5>进入社区<a href="/dog">分享点滴</a></h5>
+    {% else %}
+        <h5>返回<a href="/enter">重新登陆</a></h5>
+    {% endif %}
+</div>
+<script>
+    console.log(name);
+    // 通过URLSearchParams对象获取URL中的参数
+        // 检查 sym 变量（由后端传递）
+    let isAdmin = "{{ sym | tojson }}";
+    
+    if (isAdmin) {
+        if (confirm("检测到您是管理员，是否进入管理员页面？")) {
+            window.location.href = "/admin";
+        }
+    }
+</script>
+</body>
+</html>
