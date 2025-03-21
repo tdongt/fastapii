@@ -32,9 +32,9 @@ async def user_add(post: CreateUser):
     :return:
     """
     post.password = en_password(post.password)
-    create_user = await Users.create(name=post.username, passwd=post.password)
+    create_user = await Users.create(name=post.account, passwd=post.password)
     if not create_user:
-        return fail(msg=f"用户{post.username}创建失败!")
+        return fail(msg=f"用户{post.account}创建失败!")
     return success(msg=f"用户{create_user.name}创建成功")
 
 
@@ -70,6 +70,7 @@ async def get_user_rules(user_id: int):
     }
     return success(msg="用户权限", data=data)
 async def account_login(post: AccountLogin):
+    print("执行了")
     """
     获取用户权限集合
     :param user_id:
@@ -78,14 +79,14 @@ async def account_login(post: AccountLogin):
     :param post:
     :return: jwt token
     """
-    get_user = await Users.get_or_none(name=post.username)
+    get_user = await Users.get_or_none(name=post.account)
     print(get_user)
     if not get_user:
-        return fail(msg=f"用户{post.username}密码验证失败!")
+        return fail(msg=f"用户{post.account}密码验证失败!")
     if not check_password(post.password, get_user.passwd):
-        return fail(msg=f"用户{post.username}密码验证失败!")
+        return fail(msg=f"用户{post.account}密码验证失败!")
     if not get_user.user_status:
-        return fail(msg=f"用户{post.username}已被管理员禁用!")
+        return fail(msg=f"用户{post.account}已被管理员禁用!")
     jwt_data = {
         "user_id": get_user.pk,
         "user_type": get_user.typee

@@ -8,18 +8,18 @@ from pydantic import Field, BaseModel
 from typing import Optional
 
 class CreateUser(BaseModel):
-    username: str = Field(min_length=3, max_length=10)
+    account: str = Field(min_length=3, max_length=10)
     password: str = Field(min_length=8, max_length=12)
     #user_type: bool = Field(default=False)
 
 class AccountLogin(BaseModel):
-    username: str = Field(min_length=3, max_length=10)
+    account: str = Field(min_length=3, max_length=10)
     password: str = Field(min_length=8, max_length=12)
 
 
 class UserInfo(BaseModel):
     id: int
-    username: str
+    account: str
     age: Optional[int]
     user_type: bool
     nickname: Optional[str]

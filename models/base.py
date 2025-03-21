@@ -49,3 +49,11 @@ class Access(TimestampMixin):
     class Meta:
         table_description = "权限表"
         table = "access"
+
+class SystemParams(TimestampMixin):
+    params_name = fields.CharField(unique=True, max_length=255, description="参数名")
+    params = fields.JSONField(description="参数")
+
+    class Meta:
+        table_description = "系统参数表"
+        table = "system_params"

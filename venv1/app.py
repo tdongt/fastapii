@@ -13,6 +13,7 @@ from views.base import viewsrouter
 from core import events
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from core.middleware import BaseMiddleware
 from tortoise.exceptions import OperationalError, DoesNotExist
 from core.exception import http_error_handler, http422_error_handler, unicorn_exception_handler, UnicornException, \
@@ -43,6 +44,14 @@ app.add_middleware(
     secret_key=settings.SECRET_KEY,
     session_cookie=settings.SESSION_COOKIE,
     max_age=settings.SESSION_MAX_AGE
+)
+#跨域请求
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[str(origin) for origin in settings.CORS_ORIGINS],
+    allow_credentials=settings.CORS_ALLOW_CREDENTIALS,
+    allow_methods=settings.CORS_ALLOW_METHODS,
+    allow_headers=settings.CORS_ALLOW_HEADERS,
 )
 #事件监听
 app.add_event_handler("startup", events.startup(app))
