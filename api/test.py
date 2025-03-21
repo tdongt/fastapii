@@ -96,5 +96,5 @@ async def account_login(post: AccountLogin):
     return JSONResponse({
         "code": 200,
         "message": "登陆成功😄",
-        "data": {}
+        "data": {"token": jwt_token}
     }, status_code=200, headers={"Set-Cookie": "X-token=Bearer "+jwt_token})
