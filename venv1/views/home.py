@@ -82,6 +82,7 @@ async def register_result(request:Request,username:str=Form(...),password:str=Fo
         print("创建时间:",user.create_time)
         print("更新时间:",user.update_time)"""
     return request.app.state.views.TemplateResponse("regresult.html",{"request":request,"name":username,"password":password})
+
 #测试页面
 async def dogtest(request:Request):
     """
@@ -89,12 +90,14 @@ async def dogtest(request:Request):
     :return: 返回测试页面
     """
     return request.app.state.views.TemplateResponse("dog.html",{"request":request})
+
 #cookie测试
 def create_cookie():
     content = {"message": "Come to the dark side, we have cookies"}
     response = JSONResponse(content=content)
     response.set_cookie(key="fakesession", value="fake-cookie-session-value")
     return response
+
 #cookie and session 测试
 async def test_sc(request:Request,session_id:Optional[str]=Cookie(None)):
     """
@@ -109,6 +112,7 @@ async def test_sc(request:Request,session_id:Optional[str]=Cookie(None)):
     }
     request.session.setdefault("232323","fake-cookie-session-value")
     return request.app.state.views.TemplateResponse("t_cose.html",{"request":request,**page_data})
+
 async def test():
     return {"message":"a test"}
 
