@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from core.response import success, fail
-from core.validator import CreateUser,AccountLogin,UserInfo,CreateRole,CreateAccess,ControlRole,UpdateAccess
+from schemas.validator import CreateUser,AccountLogin,UserInfo,CreateRole,CreateAccess,ControlRole,UpdateAccess
 from models.base import Users, Role, Access
 from core.Utils import en_password,check_password
 from core.auth import create_access_token #导入创建token的函数

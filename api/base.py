@@ -6,7 +6,8 @@ from api.test import user_info,user_del,user_add,get_user_rules,account_login,ge
 from config import config
 from starlette.responses import HTMLResponse
 from core.auth import check_permissions
-apirouter=APIRouter(prefix="/api",tags=["api路由"])
+from api.extends import websocket
+apirouter=APIRouter(prefix="/api")
 apirouter.post("/user/account/login",
                 tags=["用户接口"], 
                 summary="用户登陆"
@@ -62,4 +63,7 @@ apirouter.patch("/admin/access",
                tags=["权限管理"],
                summary="修改权限"
                )(update_access)
+apirouter.include_router(websocket.webrouter, 
+                         prefix='/webst', 
+                         tags=["WebSocket"])
 

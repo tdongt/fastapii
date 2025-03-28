@@ -3,7 +3,7 @@ from tortoise import Tortoise,connections
 from fastapi.responses import JSONResponse
 from tortoise.expressions import Q
 import redis
-from core.validator import CreateUser
+from schemas.validator import CreateUser
 from typing import Optional
 redis_client = redis.Redis(host='localhost', port=6379, db=0)
 from models.base import Users,Role  # 添加模型导入

@@ -1,6 +1,4 @@
-# -*- coding:utf-8 -*-
 """
-@Created on : 2025.3.1
 @Author: anit
 @Des: app运行时文件
 """

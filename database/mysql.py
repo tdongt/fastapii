@@ -1,7 +1,4 @@
-# -*- coding:utf-8 -*-
 """
-@Time : 2022/4/24 10:15 AM
-@Author: binkuolo
 @Des: mysql数据库
 """
 

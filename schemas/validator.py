@@ -5,7 +5,7 @@
 @Des: 用户验证模型
 """
 from pydantic import Field, BaseModel
-from typing import Optional
+from typing import Optional,Any
 # 创建用户
 class CreateUser(BaseModel):
     account: str = Field(min_length=3, max_length=10)
@@ -55,3 +55,8 @@ class UpdateAccess(BaseModel):
     access_id : int
     access_scopes : Optional[list[int]] = []
     action : str
+
+class WebsocketMessage(BaseModel):
+    action: Optional[str]
+    user: Optional[int]
+    data: Optional[Any]
