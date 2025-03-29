@@ -55,6 +55,7 @@ class UpdateAccess(BaseModel):
     access_id : int
     access_scopes : Optional[list[int]] = []
     action : str
+    parent_id : int
 
 class WebsocketMessage(BaseModel):
     action: Optional[str]

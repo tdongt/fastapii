@@ -2,7 +2,7 @@
 @Des:基本路由
 """
 from fastapi import APIRouter,Request,Form,Security
-from api.test import user_info,user_del,user_add,get_user_rules,account_login,get_roles,add_role,control_role,get_access,update_access
+from api.test import user_info,user_del,user_add,get_user_rules,account_login,get_roles,add_role,control_role,get_access_tree,update_access
 from config import config
 from starlette.responses import HTMLResponse
 from core.auth import check_permissions
@@ -57,13 +57,13 @@ apirouter.patch("/admin/role",
 apirouter.get("/admin/access",
               tags=["权限管理"],
               summary="查询权限"
-              )(get_access)
+              )(get_access_tree)
 
 apirouter.patch("/admin/access",
                tags=["权限管理"],
                summary="修改权限"
                )(update_access)
 apirouter.include_router(websocket.webrouter, 
-                         prefix='/webst', 
+                         prefix='/api/user/webst', 
                          tags=["WebSocket"])
 

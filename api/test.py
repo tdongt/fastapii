@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from typing import Any,List,Dict
 from core.response import success, fail
 from schemas.validator import CreateUser,AccountLogin,UserInfo,CreateRole,CreateAccess,ControlRole,UpdateAccess
 from models.base import Users, Role, Access
@@ -181,8 +181,40 @@ async def control_role(post: ControlRole):
         "added": post.access or [],
         "removed": post.access or []
     }
-async def get_access():
-    pass
+#查询权限并以树型返回
+async def get_access_tree() -> List[Dict[str, Any]]:
+    """
+    查询所有权限数据，并构建权限树
+    """
+    acs = await Access.all()
+    access_dict = {ac.id: ac for ac in acs}
+    # 添加 children 字段
+    for ac in access_dict.values():
+        ac.children = []
+    # 构建树
+    root = []
+    for ac in access_dict.values():
+        if ac.parent_id and ac.parent_id in access_dict:
+           access_dict[ac.parent_id].children.append(ac)
+        else:
+            root.append(ac)
+
+    return serialize_Accesss(root)
+
+def serialize_Accesss(Access_list):
+    """
+    递归将 ORM 对象转换为 JSON 结构
+    """
+    return [
+        {
+            "id": ac.id,
+            "access_name": ac.access_name,
+            "scopes": ac.scopes,
+            "access_desc": ac.access_desc,
+            "children": serialize_Accesss(ac.children) if ac.children else []
+        }
+        for ac in Access_list
+    ]
 async def update_access(post: UpdateAccess):
     """
     对权限进行修改,更新
