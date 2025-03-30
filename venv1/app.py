@@ -16,6 +16,7 @@ from core.middleware import BaseMiddleware
 from tortoise.exceptions import OperationalError, DoesNotExist
 from core.exception import http_error_handler, http422_error_handler, unicorn_exception_handler, UnicornException, \
     mysql_operational_error, mysql_does_not_exist
+from api.extends.websocket import webrouter
 settings=config()
 """ app = FastAPI(
     debug=settings.APP_DEBUG,
@@ -33,6 +34,7 @@ async def read_root(request:Request):
     return app.state.views.TemplateResponse("first.html",{"request":request})   
 app.include_router(viewsrouter)
 app.include_router(apirouter)
+app.include_router(webrouter)
 app.mount("/static",StaticFiles(directory="static"),name="static")
 app.state.views=Jinja2Templates(directory=settings.template_path)
 #添加中间件

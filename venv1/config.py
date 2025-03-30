@@ -18,7 +18,7 @@ class config(BaseSettings):
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES : int = 24 * 60
     #SWAGGER_UI_OAUTH2_REDIRECT_URL : str = "/api/v1/test/oath2"
     #跨域请求
-    CORS_ORIGINS : list = ["http://10.81.29.195:8000","http://192.168.1.107:8000","http://localhost:8000"]
+    CORS_ORIGINS : list = ["http://10.81.29.195:8000","http://192.168.1.107:8000","http://localhost:5173"]
     CORS_ALLOW_CREDENTIALS: bool = True
     CORS_ALLOW_METHODS: list = ["*"]
     CORS_ALLOW_HEADERS: list = ["*"]

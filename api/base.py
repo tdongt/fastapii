@@ -63,7 +63,3 @@ apirouter.patch("/admin/access",
                tags=["权限管理"],
                summary="修改权限"
                )(update_access)
-apirouter.include_router(websocket.webrouter, 
-                         prefix='/api/user/webst', 
-                         tags=["WebSocket"])
-
