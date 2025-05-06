@@ -14,9 +14,26 @@ async def user_info(user_id: int):
     """
     print("在搞用户数据 稍等...")
     user_data = await Users.get_or_none(pk=user_id)
+    if user_data.user_status == 0:
+        user_data.user_status = '禁用'
+    else:user_data.user_status = '正常'
+    if user_data.typee == 0:
+        user_data.typee = '普通用户'
+    else:user_data.typee = '根管理员'
+    
+    user_dict = {
+        "id": user_data.id,
+        "name": user_data.name,
+        "nickname": user_data.nickname,
+        "email": user_data.email,
+        "phone": user_data.phone,
+        "user_status": user_data.user_status,
+        "typee": user_data.typee,
+        "header_img": user_data.header_img
+    }
     if not user_data:
         return fail(msg=f"用户ID{user_id}不存在!")
-    return success(msg="用户信息", data=user_data)
+    return success(msg="用户信息", data=user_dict)
 
 
 async def user_add(post: CreateUser):
@@ -89,7 +106,8 @@ async def account_login(post: AccountLogin):
     return JSONResponse({
         "code": 200,
         "message": "登陆成功😄",
-        "data": {"token": jwt_token}
+        "data": {"token": jwt_token,
+                 "id": get_user.pk}
     }, status_code=200, headers={"Set-Cookie": "X-token=Bearer "+jwt_token})
 
 
